@@ -1,0 +1,167 @@
+var _user$project$Question$findFeedback = F3(
+	function (answer, response, distractors) {
+		findFeedback:
+		while (true) {
+			var _p0 = distractors;
+			if (_p0.ctor === '[]') {
+				return A2(_elm_lang$core$Basics_ops['++'], 'Incorrect. The answer is ', answer);
+			} else {
+				var _p1 = _p0._0;
+				if (_elm_lang$core$Native_Utils.eq(
+					_elm_lang$core$Basics$fst(_p1),
+					response) || _elm_lang$core$Native_Utils.eq(
+					_elm_lang$core$Basics$fst(_p1),
+					'')) {
+					return A2(
+						_elm_lang$core$Basics_ops['++'],
+						_elm_lang$core$Basics$snd(_p1),
+						A2(_elm_lang$core$Basics_ops['++'], ' The answer is ', answer));
+				} else {
+					var _v1 = answer,
+						_v2 = response,
+						_v3 = _p0._1;
+					answer = _v1;
+					response = _v2;
+					distractors = _v3;
+					continue findFeedback;
+				}
+			}
+		}
+	});
+var _user$project$Question$Question = F4(
+	function (a, b, c, d) {
+		return {question: a, distractors: b, answer: c, format: d};
+	});
+var _user$project$Question$MultipleChoice = {ctor: 'MultipleChoice'};
+var _user$project$Question$newQuestion = F2(
+	function (randomValues, searchAlgorithm) {
+		var format$ = _user$project$Question$MultipleChoice;
+		var feedbackString = function () {
+			var _p2 = searchAlgorithm;
+			switch (_p2.ctor) {
+				case 'BreadthFirstSearch':
+					return 'Incorrect. Breadth First Search returns the item at the front of the fringe (i.e., it treats the fringe like a queue).';
+				case 'DepthFirstSearch':
+					return 'Incorrect. Depth First Search returns the item at the end of the fringe (i.e., it treats the fringe like a stack).';
+				case 'UniformCostSearch':
+					return 'Incorrect. Uniform Cost Search returns the item with the lowest total path cost.';
+				case 'GreedySearch':
+					return 'Incorrect. Greedy Search returns the item with the lowest total path cost.';
+				default:
+					return 'Incorrect. A* Search returns the item with the lowest combined total path cost and heuristic value.';
+			}
+		}();
+		var nodeNames = _user$project$RandomStuff$compressList(
+			A4(
+				_user$project$RandomStuff$pickABunch,
+				randomValues,
+				5,
+				_elm_lang$core$Native_List.fromArray(
+					['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']),
+				'A'));
+		var fringeSize = _elm_lang$core$List$length(nodeNames);
+		var pathWeights = A4(
+			_user$project$RandomStuff$pickABunch,
+			A2(_elm_lang$core$List$drop, fringeSize, randomValues),
+			fringeSize,
+			_elm_lang$core$Native_List.range(1, 9),
+			1);
+		var nodeHeuristicValues = A4(
+			_user$project$RandomStuff$pickABunch,
+			A2(_elm_lang$core$List$drop, 2 * fringeSize, randomValues),
+			fringeSize,
+			_elm_lang$core$Native_List.range(1, 9),
+			1);
+		var fringe = A4(
+			_elm_lang$core$List$map3,
+			F3(
+				function (n, w, h) {
+					return {ctor: '_Tuple3', _0: n, _1: w, _2: h};
+				}),
+			nodeNames,
+			pathWeights,
+			nodeHeuristicValues);
+		var question$ = _elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$core$Basics_ops['++'],
+				'Given the following fringe, which fringe item will be selected next by ',
+				_user$project$Search$searchAlgorithmString(searchAlgorithm)),
+				'',
+				_elm_lang$core$Basics$toString(fringe),
+				'',
+				'Each fringe item is a tuple consisting of (node name, total path cost, heuristic value).',
+				'New items are added to the right (end) of the fringe. ',
+				'Ties are broken by alphabetical order.'
+			]);
+		var answer$ = function () {
+			var _p3 = searchAlgorithm;
+			switch (_p3.ctor) {
+				case 'BreadthFirstSearch':
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Basics$toString(
+							_user$project$Search$getFirstFringeItem(fringe)),
+						_1: 'Correct. Breadth First Search returns the item at the front of the fringe (i.e., it treats the fringe like a queue).'
+					};
+				case 'DepthFirstSearch':
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Basics$toString(
+							_user$project$Search$getLastFringeItem(fringe)),
+						_1: 'Correct. Depth First Search returns the item at the end of the fringe (i.e., it treats the fringe like a stack).'
+					};
+				case 'UniformCostSearch':
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Basics$toString(
+							_user$project$Search$getLowestCostFringeItem(fringe)),
+						_1: 'Correct. Uniform Cost Search returns the item with the lowest total path cost.'
+					};
+				case 'GreedySearch':
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Basics$toString(
+							_user$project$Search$getLowestHeuristicFringeItem(fringe)),
+						_1: 'Correct. Greedy Search returns the item with the lowest total path cost.'
+					};
+				default:
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Basics$toString(
+							_user$project$Search$getLowestAStarFringeItem(fringe)),
+						_1: 'Correct. A* Search returns the item with the lowest combined total path cost and heuristic value.'
+					};
+			}
+		}();
+		var distractors$ = A2(
+			_elm_lang$core$List$map,
+			function (fe) {
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Basics$toString(fe),
+					_1: feedbackString
+				};
+			},
+			fringe);
+		var _p4 = A2(
+			_elm_lang$core$List$partition,
+			function (_p5) {
+				var _p6 = _p5;
+				return _elm_lang$core$Native_Utils.eq(
+					_p6._0,
+					_elm_lang$core$Basics$fst(answer$));
+			},
+			distractors$);
+		var distractors$$ = _p4._1;
+		return {question: question$, distractors: distractors$$, answer: answer$, format: format$};
+	});
+var _user$project$Question$FillInTheBlank = {ctor: 'FillInTheBlank'};
+var _user$project$Question$emptyQuestion = {
+	question: _elm_lang$core$Native_List.fromArray(
+		[]),
+	distractors: _elm_lang$core$Native_List.fromArray(
+		[]),
+	answer: {ctor: '_Tuple2', _0: '', _1: ''},
+	format: _user$project$Question$FillInTheBlank
+};

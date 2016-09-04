@@ -1,0 +1,94 @@
+var _user$project$Search$searchAlgorithmString = function (index) {
+	var _p0 = index;
+	switch (_p0.ctor) {
+		case 'BreadthFirstSearch':
+			return 'Breadth-First Search';
+		case 'DepthFirstSearch':
+			return 'Depth-First Search';
+		case 'UniformCostSearch':
+			return 'Uniform Cost Search';
+		case 'GreedySearch':
+			return 'Greedy Search';
+		default:
+			return 'A* Search';
+	}
+};
+var _user$project$Search$getLastFringeItem = function (fringe) {
+	return A2(
+		_elm_lang$core$Maybe$withDefault,
+		{ctor: '_Tuple3', _0: 'Z', _1: 0, _2: 0},
+		_elm_lang$core$List$head(
+			_elm_lang$core$List$reverse(fringe)));
+};
+var _user$project$Search$getFirstFringeItem = function (fringe) {
+	return A2(
+		_elm_lang$core$Maybe$withDefault,
+		{ctor: '_Tuple3', _0: 'Z', _1: 0, _2: 0},
+		_elm_lang$core$List$head(fringe));
+};
+var _user$project$Search$byCostAndHeuristic = function (_p1) {
+	var _p2 = _p1;
+	return _p2._1 + _p2._2;
+};
+var _user$project$Search$byHeuristic = function (_p3) {
+	var _p4 = _p3;
+	return _p4._2;
+};
+var _user$project$Search$byCost = function (_p5) {
+	var _p6 = _p5;
+	return _p6._1;
+};
+var _user$project$Search$byName = function (_p7) {
+	var _p8 = _p7;
+	return _p8._0;
+};
+var _user$project$Search$getLowestCostFringeItem = function (fringe) {
+	return A2(
+		_elm_lang$core$Maybe$withDefault,
+		{ctor: '_Tuple3', _0: 'Z', _1: 0, _2: 0},
+		_elm_lang$core$List$head(
+			A2(
+				_elm_lang$core$List$sortBy,
+				_user$project$Search$byCost,
+				A2(_elm_lang$core$List$sortBy, _user$project$Search$byName, fringe))));
+};
+var _user$project$Search$getLowestHeuristicFringeItem = function (fringe) {
+	return A2(
+		_elm_lang$core$Maybe$withDefault,
+		{ctor: '_Tuple3', _0: 'Z', _1: 0, _2: 0},
+		_elm_lang$core$List$head(
+			A2(
+				_elm_lang$core$List$sortBy,
+				_user$project$Search$byHeuristic,
+				A2(_elm_lang$core$List$sortBy, _user$project$Search$byName, fringe))));
+};
+var _user$project$Search$getLowestAStarFringeItem = function (fringe) {
+	return A2(
+		_elm_lang$core$Maybe$withDefault,
+		{ctor: '_Tuple3', _0: 'Z', _1: 0, _2: 0},
+		_elm_lang$core$List$head(
+			A2(
+				_elm_lang$core$List$sortBy,
+				_user$project$Search$byCostAndHeuristic,
+				A2(_elm_lang$core$List$sortBy, _user$project$Search$byName, fringe))));
+};
+var _user$project$Search$AStarSearch = {ctor: 'AStarSearch'};
+var _user$project$Search$GreedySearch = {ctor: 'GreedySearch'};
+var _user$project$Search$UniformCostSearch = {ctor: 'UniformCostSearch'};
+var _user$project$Search$DepthFirstSearch = {ctor: 'DepthFirstSearch'};
+var _user$project$Search$BreadthFirstSearch = {ctor: 'BreadthFirstSearch'};
+var _user$project$Search$convertToSearchAlgorithm = function (index) {
+	var _p9 = index;
+	switch (_p9) {
+		case 1:
+			return _user$project$Search$BreadthFirstSearch;
+		case 2:
+			return _user$project$Search$DepthFirstSearch;
+		case 3:
+			return _user$project$Search$UniformCostSearch;
+		case 4:
+			return _user$project$Search$GreedySearch;
+		default:
+			return _user$project$Search$AStarSearch;
+	}
+};
