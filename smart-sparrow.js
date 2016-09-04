@@ -12,7 +12,7 @@ var model = new pipit.CapiAdapter.CapiModel({
 pipit.CapiAdapter.expose('mastery', model);
 pipit.CapiAdapter.expose('numerator', model);
 pipit.CapiAdapter.expose('denominator', model);
-pipit.CapiAdapter.expose('searchType', model);
+pipit.CapiAdapter.expose('searchAlgorithm', model);
 pipit.CapiAdapter.expose('implementMastery', model);
 pipit.CapiAdapter.expose('debug', model);
 
