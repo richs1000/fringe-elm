@@ -46,7 +46,7 @@ var _user$project$Question$newQuestion = F2(
 				case 'UniformCostSearch':
 					return 'Incorrect. Uniform Cost Search returns the item with the lowest total path cost.';
 				case 'GreedySearch':
-					return 'Incorrect. Greedy Search returns the item with the lowest total path cost.';
+					return 'Incorrect. Greedy Search returns the item with the lowest heuristic value.';
 				default:
 					return 'Incorrect. A* Search returns the item with the lowest combined total path cost and heuristic value.';
 			}
