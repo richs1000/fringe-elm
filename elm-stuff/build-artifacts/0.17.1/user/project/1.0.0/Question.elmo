@@ -123,7 +123,7 @@ var _user$project$Question$newQuestion = F2(
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Basics$toString(
 							_user$project$Search$getLowestHeuristicFringeItem(fringe)),
-						_1: 'Correct. Greedy Search returns the item with the lowest total path cost.'
+						_1: 'Correct. Greedy Search returns the item with the lowest heuristic value.'
 					};
 				default:
 					return {

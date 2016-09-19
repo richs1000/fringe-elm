@@ -110,7 +110,7 @@ newQuestion randomValues searchAlgorithm =
 
                 GreedySearch ->
                     ( toString (getLowestHeuristicFringeItem fringe)
-                    , "Correct. Greedy Search returns the item with the lowest total path cost."
+                    , "Correct. Greedy Search returns the item with the lowest heuristic value."
                     )
 
                 AStarSearch ->
