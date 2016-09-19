@@ -130,7 +130,7 @@ newQuestion randomValues searchAlgorithm =
                     "Incorrect. Uniform Cost Search returns the item with the lowest total path cost."
 
                 GreedySearch ->
-                    "Incorrect. Greedy Search returns the item with the lowest total path cost."
+                    "Incorrect. Greedy Search returns the item with the lowest heuristic value."
 
                 AStarSearch ->
                     "Incorrect. A* Search returns the item with the lowest combined total path cost and heuristic value."
